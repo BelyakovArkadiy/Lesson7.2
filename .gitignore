@@ -1,0 +1,9 @@
+.idea
+.vscode
+*.log
+/vendor/
+logs/
+tests/_output
+tests/_log
+tests/*.suite.yml
+tests/_helpers/_generated
