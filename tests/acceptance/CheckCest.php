@@ -16,7 +16,7 @@ class CheckCest
         $I->seeElementInDOM('#homefeatured > li:nth-child(2) > div > div.left-block > div > a.quick-view');
         $I->moveMouseOver('#homefeatured > li:nth-child(2) > div > div.left-block > div > a.quick-view');
         $I->click('#homefeatured > li:nth-child(2) > div > div.left-block > div > a.quick-view');
-        $I->waitForElementVisible("//img[@id='bigpic']", 7);
+        $I->waitForElementVisible("#index > div.fancybox-overlay.fancybox-overlay-fixed > div > div > div > div", 7);
         $I->seeInPageSource('Blouse');
     }
 }
