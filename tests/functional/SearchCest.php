@@ -1,9 +1,14 @@
 <?php
+/*
+ * Класс для проверки Поиска
+ */
 
-
-class SearchCest // Класс для проверки Поиска
+class SearchCest
 {
-    public function checkSearch(FunctionalTester $I)   // Проверяем поиск по ключевым словам
+    /*
+     * Проверяем поиск по ключевым словам
+     */
+    public function checkSearch(FunctionalTester $I)
     {
         $I->amOnPage('');
         $I->seeElement("#search_query_top");

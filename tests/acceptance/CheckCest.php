@@ -1,8 +1,14 @@
 <?php
-
-class CheckCest // Класс для проверки главной страницы
+/*
+ *  Класс для проверки главной страницы
+ */
+class CheckCest
 {
-    public function checkQuickView(AcceptanceTester $I)  // Проверяем быстрый просмотр товара
+    /*
+    * Проверяем быстрый просмотр товара
+     *
+     */
+    public function checkQuickView(AcceptanceTester $I)
     {
         $I->amOnPage('');
         $I->seeElement('#homefeatured > li:nth-child(2) > div > div.left-block > div > a.product_img_link > img');
