@@ -6,7 +6,7 @@ use AcceptanceTester;
 use Faker\Factory;
 use Helper\CustomFakerProvider;
 use Page\Acceptance\FormPage;
-use const kk_KZ;
+use const Faker\Provider\ru_RU;
 
 /*
  * Класс для тестирование формы
