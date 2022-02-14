@@ -3,6 +3,7 @@
 namespace acceptance;
 
 use AcceptanceTester;
+use Codeception\Example;
 use Faker\Factory;
 use Helper\CustomFakerProvider;
 use Page\Acceptance\FormPage;
@@ -14,10 +15,15 @@ use const Faker\Provider\ru_RU;
 
 class SearchFillFieldsCest
 {
-    /*
+    /**
+     * @param AcceptanceTester $I
+     * @param Example $dataCard
+     * Проверяем поиск Дачи по регионам Казахстана
+     * @return void
+     * @dataProvider getMonthAndYear
      * Проверяем заполнение полей с помощью фейкера
      */
-    public function checkFillFields(AcceptanceTester $I)
+    public function checkFillFields(AcceptanceTester $I, Example $dataCard)
     {
         $faker = Factory::create('ru_RU');
         $faker->addProvider(new CustomFakerProvider($faker));
@@ -30,11 +36,34 @@ class SearchFillFieldsCest
         $I->fillField(FormPage::$address, $faker -> address);
         $I->fillField(FormPage::$city, $faker -> city);
         $I->fillField(FormPage::$region, $faker -> region);
-        $I->fillField(FormPage::$postalCode,$faker -> postcode);
-        $I->wait(10);
+        $I->fillField(FormPage::$postalCode, $faker -> postcode);
+        $I->click(FormPage::$paymentMethodCards);
+        $I->waitForText('Credit Card');
+        $I->fillField(FormPage::$firstNameInCard, $faker->firstName);
+        $I->fillField(FormPage::$lastNameInCard, $faker->lastName);
+        $I->fillField(FormPage::$numberCard, $faker-> getCardsNumber);
+        $I->fillField(FormPage::$securityCodeCard, $faker->numberBetween(100,999));
+        $I->click(FormPage::$expirationMonth);
+        $I->waitForElementVisible(sprintf(FormPage::$nameOfMonth, $dataCard['month']));
+        $I->click(sprintf(FormPage::$nameOfMonth, $dataCard['month']));
+        $I->click(FormPage::$expirationYear);
+        $I->waitForElementVisible(sprintf(FormPage::$year, $dataCard['year']));
+        $I->click(sprintf(FormPage::$year, $dataCard['year']));
+        // пауза 3 сек , чтобы убедиться что все поля заполняются
+        $I->wait('3');
         $I->click(FormPage::$btnSubmit);
         $I->waitForText('Good job');
-
-
     }
-}
+
+    /**
+     * Возвращает  месяц и год
+     */
+    protected function getMonthAndYear()
+    {
+        return [
+            ['month'=> 'January', 'year'=> "2025"],
+            ['month'=>'February','year'=> '2024'],
+            ['month'=>'March','year'=>'2023']
+        ];
+    }
+ }

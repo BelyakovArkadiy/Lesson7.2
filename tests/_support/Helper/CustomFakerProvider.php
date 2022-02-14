@@ -18,7 +18,7 @@ class CustomFakerProvider extends Base {
 
     /**
      * @return string
-     * Возращает рандомный казахстанский номер
+     * Возращает рандомный казахстанский номер телефона
      */
    public function getPhoneKz()
    {
@@ -29,6 +29,20 @@ class CustomFakerProvider extends Base {
            rand(10,99),
            rand(10,99)
 
+       );
+   }
+
+   /**
+    * @return string
+    * Возращает рандомный номер кредитной карты
+    */
+     public function getCardsNumber() {
+       return sprintf(
+           "%d%d%d%d",
+           rand(1000,9999),
+           rand(1000,9999),
+           rand(1000,9999),
+           rand(1000,9999)
        );
    }
 }
